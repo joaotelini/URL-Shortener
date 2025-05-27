@@ -15,5 +15,10 @@ export const createUrlModel = async (url) => {
     "INSERT INTO tb_urlshort (originalurl, shortid) VALUES (?, ?)",
     [url, shortid]
   );
+
+  if (result.affectedRows === 0) {
+    throw new Error("Failed to create short URL");
+  }
+  
   return getUrlModel(shortid);
 };
